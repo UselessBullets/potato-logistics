@@ -12,8 +12,8 @@ import net.minecraft.core.net.packet.Packet;
 import net.minecraft.core.net.packet.Packet140TileEntityData;
 import net.minecraft.core.player.inventory.IInventory;
 import net.minecraft.core.util.helper.Direction;
-import sunsetsatellite.sunsetutils.util.Connection;
-import sunsetsatellite.sunsetutils.util.IItemIO;
+import sunsetsatellite.catalyst.core.util.Connection;
+import sunsetsatellite.catalyst.core.util.IItemIO;
 
 import java.util.*;
 
@@ -39,7 +39,7 @@ public class TileEntityPipe extends TileEntity {
 
     public void dropItems() {
         for (PipeStack stack : stacks) {
-            worldObj.dropItem(xCoord, yCoord, zCoord, stack.stack);
+            worldObj.dropItem(x, y, z, stack.stack);
         }
     }
 
@@ -74,20 +74,20 @@ public class TileEntityPipe extends TileEntity {
     }
 
     public boolean isDirectional() {
-        int meta = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
+        int meta = worldObj.getBlockMetadata(x, y, z);
         return (meta & (1 << 2)) != 0;
     }
 
     public Direction getDirection() {
-        int meta = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
+        int meta = worldObj.getBlockMetadata(x, y, z);
         return Direction.getDirectionById(meta >> 3);
     }
-    public boolean isPointingTo(int x, int y, int z) {
-        int meta = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
+    public boolean isPointingTo(int _x, int _y, int _z) {
+        int meta = worldObj.getBlockMetadata(x, y, z);
         Direction dir = Direction.getDirectionById(meta >> 3);
-        boolean sameX = dir.getOffsetX() == xCoord - x;
-        boolean sameY = dir.getOffsetY() == yCoord - y;
-        boolean sameZ = dir.getOffsetZ() == zCoord - z;
+        boolean sameX = dir.getOffsetX() == x - _x;
+        boolean sameY = dir.getOffsetY() == y - _y;
+        boolean sameZ = dir.getOffsetZ() == z - _z;
         return sameX && sameY && sameZ;
     }
 
@@ -116,12 +116,12 @@ public class TileEntityPipe extends TileEntity {
     }
 
     @Override
-    public void updateEntity() {
-        super.updateEntity();
+    public void tick() {
+        super.tick();
 
-        if (!stacks.isEmpty()) worldObj.markBlockNeedsUpdate(this.xCoord, this.yCoord, this.zCoord);
+        if (!stacks.isEmpty()) worldObj.markBlockNeedsUpdate(this.x, this.y, this.z);
 
-        int meta = getBlockMetadata();
+        int meta = worldObj.getBlockMetadata(x, y, z);
 
         int type = meta & 0x03;
         boolean isDirectional = (meta & (1 << 2)) != 0;
@@ -129,11 +129,11 @@ public class TileEntityPipe extends TileEntity {
 
         if (type == 1 && stacks.size() < this.stackLimit && timer <= 0) {
             for (int i = 0; i < offsets.length; i++) {
-                int x = xCoord + offsets[i][0];
-                int y = yCoord + offsets[i][1];
-                int z = zCoord + offsets[i][2];
+                int _x = x + offsets[i][0];
+                int _y = y + offsets[i][1];
+                int _z = z + offsets[i][2];
 
-                PipeStack inventoryStack = Util.getItemFromInventory(worldObj, x, y, z, Direction.getDirectionById(i), this.stackTimer);
+                PipeStack inventoryStack = Util.getItemFromInventory(worldObj, _x, _y, _z, Direction.getDirectionById(i), this.stackTimer);
                 if (inventoryStack != null) {
                     stacks.add(inventoryStack);
                     break;
@@ -159,22 +159,22 @@ public class TileEntityPipe extends TileEntity {
 
                 List<IInventory> ioInventories = new ArrayList<>(6);
                 List<IItemIO> itemIOs = new ArrayList<>(6);
-                List<sunsetsatellite.sunsetutils.util.Direction> ioDirections = new ArrayList<>(6);
+                List<sunsetsatellite.catalyst.core.util.Direction> ioDirections = new ArrayList<>(6);
 
                 //List<IInventory> furnaces = new ArrayList<>(6);
                 List<Direction> inventoriesDirection = new ArrayList<>(6);
                 List<Direction> directions = new ArrayList<>(6);
 
                 for (int i = 0; i < offsets.length; i++) {
-                    int x = xCoord + offsets[i][0];
-                    int y = yCoord + offsets[i][1];
-                    int z = zCoord + offsets[i][2];
-                    int nid = worldObj.getBlockId(x, y, z);
+                    int _x = x + offsets[i][0];
+                    int _y = y + offsets[i][1];
+                    int _z = z + offsets[i][2];
+                    int nid = worldObj.getBlockId(_x, _y, _z);
 
-                    TileEntity te = worldObj.getBlockTileEntity(x, y, z);
+                    TileEntity te = worldObj.getBlockTileEntity(_x, _y, _z);
 
                     if (te instanceof IItemIO && te instanceof IInventory) {
-                        sunsetsatellite.sunsetutils.util.Direction sdir = sunsetsatellite.sunsetutils.util.Direction.getDirectionFromSide(i).getOpposite();
+                        sunsetsatellite.catalyst.core.util.Direction sdir = sunsetsatellite.catalyst.core.util.Direction.getDirectionFromSide(i).getOpposite();
                         IItemIO itemIo = (IItemIO) te;
                         IInventory inventory = (IInventory) itemIo;
 
@@ -194,7 +194,7 @@ public class TileEntityPipe extends TileEntity {
                         IInventory inventory = (IInventory) te;
 
                         if (inventory instanceof TileEntityChest) {
-                            inventory = BlockChest.getInventory(worldObj, x, y ,z);
+                            inventory = BlockChest.getInventory(worldObj, _x, _y ,_z);
                         }
 
                         if (type == 2) {
@@ -208,7 +208,7 @@ public class TileEntityPipe extends TileEntity {
                 if (!ioInventories.isEmpty()) {
                     int idx = (int)(Math.random() * (double) ioInventories.size());
                     IInventory inventory = ioInventories.get(idx);
-                    sunsetsatellite.sunsetutils.util.Direction dir = ioDirections.get(idx);
+                    sunsetsatellite.catalyst.core.util.Direction dir = ioDirections.get(idx);
                     IItemIO io = itemIOs.get(idx);
                     int stackIdx = io.getActiveItemSlotForSide(dir);
 

@@ -1,5 +1,6 @@
 package deboni.potatologistics.blocks;
 
+import deboni.potatologistics.PotatoItems;
 import deboni.potatologistics.PotatoLogisticsMod;
 import deboni.potatologistics.blocks.entities.TileEntityAutoBasket;
 import net.minecraft.core.block.BlockTileEntity;
@@ -44,12 +45,12 @@ public class BlockAutoBasket extends BlockTileEntity {
     }
 
     @Override
-    public boolean isOpaqueCube() {
+    public boolean isSolidRender() {
         return false;
     }
 
     @Override
-    public void onBlockRemoval(World world, int x, int y, int z) {
+    public void onBlockRemoved(World world, int x, int y, int z, int data) {
         TileEntityAutoBasket te = (TileEntityAutoBasket)world.getBlockTileEntity(x, y, z);
         world.removeBlockTileEntity(x, y, z);
         if (world.isClientSide) {
@@ -79,6 +80,6 @@ public class BlockAutoBasket extends BlockTileEntity {
 
     @Override
     public ItemStack[] getBreakResult(World world, EnumDropCause dropCause, int x, int y, int z, int meta, TileEntity tileEntity) {
-        return new ItemStack[]{new ItemStack(PotatoLogisticsMod.itemAutoBasket)};
+        return new ItemStack[]{new ItemStack(PotatoItems.itemAutoBasket)};
     }
 }

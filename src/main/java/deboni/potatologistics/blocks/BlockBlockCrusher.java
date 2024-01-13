@@ -52,11 +52,6 @@ public class BlockBlockCrusher extends BlockRotatable {
         super.onBlockAdded(world, i, j, k);
         this.setDefaultDirection(world, i, j, k);
     }
-
-    @Override
-    public void onBlockRemoval(World world, int x, int y, int z) {
-        super.onBlockRemoval(world, x, y, z);
-    }
     public static ItemStack[] cloneStackArray(ItemStack[] stacks){
         ItemStack[] _result = new ItemStack[stacks.length];
         for (int i = 0; i < _result.length; i++) {

@@ -17,7 +17,7 @@
 
   "environment": "*",
   "entrypoints": {
-    "main": [
+    "beforeGameStart": [
         "deboni.potatologistics.PotatoLogisticsMod"
     ],
     "btwaila": [
@@ -29,7 +29,8 @@
   ],
   "depends": {
     "fabricloader": ">=0.13.3",
-    "energyapi": ">=1.1.9"
+    "catalyst-core": ">=1.1.1",
+    "catalyst-energy": ">=1.0.1"
   },
   "suggests": {
   }

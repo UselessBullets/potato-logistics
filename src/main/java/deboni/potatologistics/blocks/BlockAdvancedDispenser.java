@@ -51,13 +51,13 @@ public class BlockAdvancedDispenser
 //        if (Block.opaqueCubeLookup[l] && !Block.opaqueCubeLookup[i1]) {
 //            byte0 = 3;
 //        }
-        if (Block.opaqueCubeLookup[i1] && !Block.opaqueCubeLookup[l]) {
+        if (!Block.translucent[i1] && Block.translucent[l]) {
             byte0 = 2;
         }
-        if (Block.opaqueCubeLookup[j1] && !Block.opaqueCubeLookup[k1]) {
+        if (!Block.translucent[j1] && Block.translucent[k1]) {
             byte0 = 5;
         }
-        if (Block.opaqueCubeLookup[k1] && !Block.opaqueCubeLookup[j1]) {
+        if (!Block.translucent[k1] && Block.translucent[j1]) {
             byte0 = 4;
         }
         world.setBlockMetadataWithNotify(i, j, k, byte0);
@@ -141,7 +141,7 @@ public class BlockAdvancedDispenser
                     }
                 }
                 if (id == Block.dirt.id) {
-                    if (!world.isClientSide && Block.lightOpacity[world.getBlockId(blockX, blockY + 1, blockZ)] <= 2) {
+                    if (!world.isClientSide && Block.lightBlock[world.getBlockId(blockX, blockY + 1, blockZ)] <= 2) {
                         int grass = Block.grass.id;
                         if (world.dimensionData.getWorldType() == WorldTypes.OVERWORLD_RETRO) {
                             grass = Block.grassRetro.id;
@@ -149,13 +149,13 @@ public class BlockAdvancedDispenser
                         world.setBlockWithNotify(blockX, blockY, blockZ, grass);
                     }
                 }
-                if (id == Block.dirtScorched.id && !world.isClientSide && Block.lightOpacity[world.getBlockId(blockX, blockY + 1, blockZ)] <= 2) {
+                if (id == Block.dirtScorched.id && !world.isClientSide && Block.lightBlock[world.getBlockId(blockX, blockY + 1, blockZ)] <= 2) {
                     int grass = Block.grassScorched.id;
                     world.setBlockWithNotify(blockX, blockY, blockZ, grass);
                 }
                 if (id == Block.cropsWheat.id && meta < 7) {
                     if (!world.isClientSide) {
-                        ((BlockCrops)Block.cropsWheat).fertilize(world, blockX, blockY, blockZ);
+                        ((BlockCropsWheat)Block.cropsWheat).fertilize(world, blockX, blockY, blockZ);
                     }
                 }
                 if (id == Block.mossStone.id || id == Block.mossLimestone.id || id == Block.mossGranite.id || id == Block.mossBasalt.id) {
@@ -267,7 +267,7 @@ public class BlockAdvancedDispenser
     }
 
     @Override
-    public void onBlockRemoval(World world, int x, int y, int z) {
+    public void onBlockRemoved(World world, int x, int y, int z, int data) {
         if (world.getBlockTileEntity(x, y, z) != null) {
             TileEntityDispenser tileentitydispenser = (TileEntityDispenser)world.getBlockTileEntity(x, y, z);
             for (int l = 0; l < tileentitydispenser.getSizeInventory(); ++l) {
@@ -291,7 +291,7 @@ public class BlockAdvancedDispenser
                 }
             }
         }
-        super.onBlockRemoval(world, x, y, z);
+        super.onBlockRemoved(world, x, y, z, data);
     }
 }
 

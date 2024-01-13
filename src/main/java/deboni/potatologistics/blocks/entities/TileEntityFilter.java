@@ -6,6 +6,7 @@ import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.entity.player.EntityPlayer;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.player.inventory.IInventory;
+import net.minecraft.core.player.inventory.InventorySorter;
 
 public class TileEntityFilter extends TileEntity implements IInventory {
     private ItemStack[] filterContents;
@@ -96,9 +97,14 @@ public class TileEntityFilter extends TileEntity implements IInventory {
 
     @Override
     public boolean canInteractWith(EntityPlayer entityPlayer) {
-        if (this.worldObj.getBlockTileEntity(this.xCoord, this.yCoord, this.zCoord) != this) {
+        if (this.worldObj.getBlockTileEntity(this.x, this.y, this.z) != this) {
             return false;
         }
-        return entityPlayer.distanceToSqr((double)this.xCoord + 0.5, (double)this.yCoord + 0.5, (double)this.zCoord + 0.5) <= 64.0;
+        return entityPlayer.distanceToSqr((double)this.x + 0.5, (double)this.y + 0.5, (double)this.z + 0.5) <= 64.0;
+    }
+
+    @Override
+    public void sortInventory() {
+        InventorySorter.sortInventory(filterContents);
     }
 }

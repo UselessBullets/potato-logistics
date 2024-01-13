@@ -1,5 +1,6 @@
 package deboni.potatologistics.blocks;
 
+import deboni.potatologistics.PotatoItems;
 import deboni.potatologistics.PotatoLogisticsMod;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.material.Material;
@@ -27,7 +28,7 @@ public class BlockPotato extends Block {
     public boolean blockActivated(World world, int x, int y, int z, EntityPlayer player) {
         this.isPowered = !this.isPowered;
 
-        if (player.getHeldItem().getItem().id == PotatoLogisticsMod.itemWrench.id) {
+        if (player.getHeldItem().getItem().id == PotatoItems.itemWrench.id) {
             world.setBlockMetadataWithNotify(x, y, z, this.isPowered ? 1 : 0);
 
             world.playSoundEffect(SoundType.WORLD_SOUNDS, (double) x + 0.5, (double) y + 0.5, (double) z + 0.5, "random.click", 0.3f, isPowered ? 0.5f : 0.6f);

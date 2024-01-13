@@ -1,5 +1,6 @@
 package deboni.potatologistics.blocks;
 
+import deboni.potatologistics.PotatoItems;
 import deboni.potatologistics.PotatoLogisticsMod;
 import deboni.potatologistics.blocks.entities.TileEntityEnergyConnector;
 import net.minecraft.core.block.Block;
@@ -18,7 +19,7 @@ public class BlockEnergyConnector extends BlockTileEntity {
     }
 
     @Override
-    public boolean isOpaqueCube() {
+    public boolean isSolidRender() {
         return false;
     }
     @Override
@@ -64,7 +65,7 @@ public class BlockEnergyConnector extends BlockTileEntity {
         Block b = world.getBlock(x + side.getOffsetX(), y + side.getOffsetY(), z + side.getOffsetZ());
         if (b == null) {
             world.setBlockWithNotify(x, y, z, 0);
-            world.dropItem(x, y, z, new ItemStack(PotatoLogisticsMod.itemEnergyConnector));
+            world.dropItem(x, y, z, new ItemStack(PotatoItems.itemEnergyConnector));
         } else {
             ((TileEntityEnergyConnector) world.getBlockTileEntity(x, y, z)).updateMachineConnections(side.getOpposite().getDirection());
         }
@@ -76,16 +77,16 @@ public class BlockEnergyConnector extends BlockTileEntity {
     }
 
     @Override
-    public void onBlockRemoval(World world, int x, int y, int z) {
+    public void onBlockRemoved(World world, int x, int y, int z, int data) {
         TileEntityEnergyConnector ec = (TileEntityEnergyConnector) world.getBlockTileEntity(x, y, z);
         ItemStack drops = ec.getBreakDrops();
         if (drops != null) world.dropItem(x, y, z, drops);
-        super.onBlockRemoval(world, x, y, z);
+        super.onBlockRemoved(world, x, y, z, data);
     }
 
     @Override
     public ItemStack[] getBreakResult(World world, EnumDropCause dropCause, int x, int y, int z, int meta, TileEntity tileEntity) {
-        return new ItemStack[]{new ItemStack(PotatoLogisticsMod.itemEnergyConnector)};
+        return new ItemStack[]{new ItemStack(PotatoItems.itemEnergyConnector)};
     }
 
 }

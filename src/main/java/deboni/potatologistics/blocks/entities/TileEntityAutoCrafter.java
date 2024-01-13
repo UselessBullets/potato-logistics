@@ -4,10 +4,8 @@ import com.mojang.nbt.CompoundTag;
 import com.mojang.nbt.ListTag;
 import deboni.potatologistics.gui.ContainerAutoCrafter;
 import net.minecraft.core.block.entity.TileEntity;
-import net.minecraft.core.block.entity.TileEntityFurnace;
-import net.minecraft.core.crafting.CraftingManager;
+import net.minecraft.core.data.registry.Registries;
 import net.minecraft.core.entity.player.EntityPlayer;
-import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.net.packet.Packet;
 import net.minecraft.core.net.packet.Packet140TileEntityData;
@@ -123,10 +121,15 @@ public class TileEntityAutoCrafter extends TileEntity implements IInventory {
 
     @Override
     public boolean canInteractWith(EntityPlayer entityPlayer) {
-        if (this.worldObj.getBlockTileEntity(this.xCoord, this.yCoord, this.zCoord) != this) {
+        if (this.worldObj.getBlockTileEntity(this.x, this.y, this.z) != this) {
             return false;
         }
-        return entityPlayer.distanceToSqr((double) this.xCoord + 0.5, (double) this.yCoord + 0.5, (double) this.zCoord + 0.5) <= 64.0;
+        return entityPlayer.distanceToSqr((double) this.x + 0.5, (double) this.y + 0.5, (double) this.z + 0.5) <= 64.0;
+    }
+
+    @Override
+    public void sortInventory() {
+
     }
 
     @Override
@@ -193,11 +196,10 @@ public class TileEntityAutoCrafter extends TileEntity implements IInventory {
     int timer = 0;
 
     @Override
-    public void updateEntity() {
-        super.updateEntity();
-
+    public void tick() {
+        super.tick();
         if (this.craftMatrix != null && !worldObj.isClientSide) {
-            ItemStack craftingResult = CraftingManager.getInstance().findMatchingRecipe(this.craftMatrix);
+            ItemStack craftingResult = Registries.RECIPES.findMatchingRecipe(this.craftMatrix);
             if (craftResult.getStackInSlot(0) == null && craftingResult != null) {
                 if (timer > 10) {
                     ItemStack[] itemStack = new ItemStack[9];
@@ -206,8 +208,8 @@ public class TileEntityAutoCrafter extends TileEntity implements IInventory {
                         itemStack[i] = s == null ? null : s.copy();
                     }
 
-                    CraftingManager.getInstance().onCraftResult(this.craftMatrix);
-                    ItemStack craftingResult2 = CraftingManager.getInstance().findMatchingRecipe(this.craftMatrix);
+                    Registries.RECIPES.onCraftResult(this.craftMatrix);
+                    ItemStack craftingResult2 = Registries.RECIPES.findMatchingRecipe(this.craftMatrix);
 
                     if (craftingResult2 != null && craftingResult2.itemID == craftingResult.itemID) {
                         craftResult.setInventorySlotContents(0, craftingResult);
@@ -219,9 +221,6 @@ public class TileEntityAutoCrafter extends TileEntity implements IInventory {
                     timer = 0;
                 }
                 timer += 1;
-
-                //CraftingManager.getInstance().onCraftResult(this.craftMatrix);
-                //for (int i = 0; i < 9; i++) this.craftMatrix.decrStackSize(i, 1);
             }
         }
     }

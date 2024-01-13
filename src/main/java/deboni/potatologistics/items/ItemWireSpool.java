@@ -1,5 +1,6 @@
 package deboni.potatologistics.items;
 
+import deboni.potatologistics.PotatoBlocks;
 import deboni.potatologistics.PotatoLogisticsMod;
 import deboni.potatologistics.blocks.entities.TileEntityEnergyConnector;
 import net.minecraft.core.block.Block;
@@ -22,7 +23,7 @@ public class ItemWireSpool extends Item {
     @Override
     public boolean onItemUse(ItemStack itemstack, EntityPlayer entityplayer, World world, int blockX, int blockY, int blockZ, Side side, double xPlaced, double yPlaced) {
         Block block = world.getBlock(blockX, blockY, blockZ);
-        if (block != null && block.id == PotatoLogisticsMod.blockEnergyConnector.id) {
+        if (block != null && block.id == PotatoBlocks.blockEnergyConnector.id) {
             boolean connected = itemstack.getData().getBoolean("connected");
             if (connected) {
                 TileEntity te = world.getBlockTileEntity(blockX, blockY, blockZ);

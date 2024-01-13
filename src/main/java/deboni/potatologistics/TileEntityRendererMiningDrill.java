@@ -22,16 +22,16 @@ public class TileEntityRendererMiningDrill extends TileEntityRenderer<TileEntity
             double y1 = 0;
             double z1 = 0.5;
             int[] b = tileEntity.blocksToBreak.get(tileEntity.blocksToBreak.size() - 1);
-            double x2 = b[0] - tileEntity.xCoord + 0.5;
-            double y2 = b[1] - tileEntity.yCoord + 1.0;
-            double z2 = b[2] - tileEntity.zCoord + 0.5;
+            double x2 = b[0] - tileEntity.x + 0.5;
+            double y2 = b[1] - tileEntity.y + 1.0;
+            double z2 = b[2] - tileEntity.z + 0.5;
 
             Util.draw3dLine(0.5, x1, y1, z1, x2, y2, z2, 2.0f, 0.0f, 0.0f);
         }
 
         double radius = 10.5;
 
-        double wHeight = -tileEntity.yCoord;
+        double wHeight = -tileEntity.y;
 
         GL11.glTranslatef(0.5f, 0.5f, 0.5f);
         Util.draw3dLine(0.1, -radius, 0, -radius, radius, 0, -radius, 0.0f, 0.0f, 2.0f);

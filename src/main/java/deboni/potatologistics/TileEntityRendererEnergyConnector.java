@@ -21,9 +21,9 @@ public class TileEntityRendererEnergyConnector extends TileEntityRenderer<TileEn
 
         Tessellator tessellator = Tessellator.instance;
         for (TileEntityEnergyConnector.Connection c : tileEntity.connections){
-            double x2 = c.x - tileEntity.xCoord;
-            double y2 = c.y - tileEntity.yCoord;
-            double z2 = c.z - tileEntity.zCoord;
+            double x2 = c.x - tileEntity.x;
+            double y2 = c.y - tileEntity.y;
+            double z2 = c.z - tileEntity.z;
 
             if (x2 > 0 || x2 == 0 && y2 > 0 || x2 == 0 && y2 == 0 && z2 > 0) continue;
 

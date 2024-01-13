@@ -1,5 +1,6 @@
 package deboni.potatologistics.mixin;
 
+import deboni.potatologistics.PotatoBlocks;
 import deboni.potatologistics.PotatoLogisticsMod;
 import deboni.potatologistics.blocks.BlockAutoBasket;
 import deboni.potatologistics.blocks.entities.TileEntityPipe;
@@ -211,10 +212,7 @@ public abstract class RenderBlocksMixin {
             } else {
                 block.setBlockBounds(0, yf, 0, 1, yf + onepix, 1);
             }
-
-            float heatColor_1 = (1 - t) + t * heatColor[1];
-            float heatColor_2 = (1 - t) + t * heatColor[2];
-            renderblocks.renderStandardBlockWithColorMultiplier(block, x, y, z, heatColor[0], heatColor_1, heatColor_2);
+            renderblocks.renderStandardBlock(block, x, y, z, heatColor[0], heatColor[1], heatColor[2]);
 
             b = !b;
         }
@@ -278,7 +276,7 @@ public abstract class RenderBlocksMixin {
                 block.setBlockBounds(m, pixelSize * i, m, 1 - m, pixelSize * (i + 1), 1 - m);
 
                 float[] color = getConnectorColor(i);
-                renderblocks.renderStandardBlockWithColorMultiplier(block, x, y, z, color[0], color[1], color[2]);
+                renderblocks.renderStandardBlock(block, x, y, z, color[0], color[1], color[2]);
             }
         } else if (side == Side.BOTTOM) {
             for (int i = 0; i < 9; i++) {
@@ -286,7 +284,7 @@ public abstract class RenderBlocksMixin {
                 block.setBlockBounds(m, 1 - pixelSize * (i + 1), m, 1 - m, 1 - pixelSize * i, 1 - m);
 
                 float[] color = getConnectorColor(i);
-                renderblocks.renderStandardBlockWithColorMultiplier(block, x, y, z, color[0], color[1], color[2]);
+                renderblocks.renderStandardBlock(block, x, y, z, color[0], color[1], color[2]);
             }
         } else if (side == Side.NORTH) {
             for (int i = 0; i < 9; i++) {
@@ -294,7 +292,7 @@ public abstract class RenderBlocksMixin {
                 block.setBlockBounds(m, m, 1 - pixelSize * (i + 1), 1 - m, 1 - m, 1 - pixelSize * i);
 
                 float[] color = getConnectorColor(i);
-                renderblocks.renderStandardBlockWithColorMultiplier(block, x, y, z, color[0], color[1], color[2]);
+                renderblocks.renderStandardBlock(block, x, y, z, color[0], color[1], color[2]);
             }
         } else if (side == Side.SOUTH) {
             for (int i = 0; i < 9; i++) {
@@ -302,7 +300,7 @@ public abstract class RenderBlocksMixin {
                 block.setBlockBounds(m, m, pixelSize * i, 1 - m, 1 - m, pixelSize * (i + 1));
 
                 float[] color = getConnectorColor(i);
-                renderblocks.renderStandardBlockWithColorMultiplier(block, x, y, z, color[0], color[1], color[2]);
+                renderblocks.renderStandardBlock(block, x, y, z, color[0], color[1], color[2]);
             }
         } else if (side == Side.EAST) {
             for (int i = 0; i < 9; i++) {
@@ -310,7 +308,7 @@ public abstract class RenderBlocksMixin {
                 block.setBlockBounds(pixelSize * i, m, m,  pixelSize * (i + 1), 1 - m, 1 - m);
 
                 float[] color = getConnectorColor(i);
-                renderblocks.renderStandardBlockWithColorMultiplier(block, x, y, z, color[0], color[1], color[2]);
+                renderblocks.renderStandardBlock(block, x, y, z, color[0], color[1], color[2]);
             }
         } else {
             for (int i = 0; i < 9; i++) {
@@ -318,7 +316,7 @@ public abstract class RenderBlocksMixin {
                 block.setBlockBounds(1 - pixelSize * (i + 1), m, m, 1 - pixelSize * i, 1 - m, 1 - m);
 
                 float[] color = getConnectorColor(i);
-                renderblocks.renderStandardBlockWithColorMultiplier(block, x, y, z, color[0], color[1], color[2]);
+                renderblocks.renderStandardBlock(block, x, y, z, color[0], color[1], color[2]);
             }
         }
 
@@ -347,34 +345,34 @@ public abstract class RenderBlocksMixin {
         if (direction == Direction.NORTH) {
             //block.setBlockBounds(0.0f, 0.0f, pixelSize, 1.0f, 1.0f, 1.0f);
 
-            PotatoLogisticsMod.blockTreeChopperSaw.setBlockBounds(
+            PotatoBlocks.blockTreeChopperSaw.setBlockBounds(
                     pixelSize * 2, 0.5f, min - offset,
                     1.0f - pixelSize * 2, 0.5f, max - offset
             );
         } else if (direction == Direction.SOUTH) {
             //block.setBlockBounds(0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f - pixelSize);
 
-            PotatoLogisticsMod.blockTreeChopperSaw.setBlockBounds(
+            PotatoBlocks.blockTreeChopperSaw.setBlockBounds(
                     pixelSize * 2, 0.5f, min + offset,
                     1.0f - pixelSize * 2, 0.5f, max + offset
             );
         } else if (direction == Direction.EAST) {
             //block.setBlockBounds(0.0f, 0.0f, 0.0f, 1.0f - pixelSize, 1.0f, 1.0f);
 
-            PotatoLogisticsMod.blockTreeChopperSaw.setBlockBounds(
+            PotatoBlocks.blockTreeChopperSaw.setBlockBounds(
                     min + offset, 0.5f, pixelSize * 2,
                     max + offset, 0.5f, 1.0f - pixelSize * 2
             );
         } else {
             //block.setBlockBounds(pixelSize, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f);
 
-            PotatoLogisticsMod.blockTreeChopperSaw.setBlockBounds(
+            PotatoBlocks.blockTreeChopperSaw.setBlockBounds(
                     min - offset, 0.5f, pixelSize * 2,
                     max - offset, 0.5f, 1.0f - pixelSize * 2
             );
         }
 
-        renderblocks.renderStandardBlock(PotatoLogisticsMod.blockTreeChopperSaw, x, y, z);
+        renderblocks.renderStandardBlock(PotatoBlocks.blockTreeChopperSaw, x, y, z);
         renderblocks.renderStandardBlock(block, x, y, z);
 
         block.setBlockBounds(0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f);
@@ -401,7 +399,7 @@ public abstract class RenderBlocksMixin {
         }
 
         block.setBlockBounds(0.25f, 0.25f, 0.25f, 0.75f, 0.75f, 0.75f);
-        renderblocks.renderStandardBlockWithColorMultiplier(block, x, y, z, r, g, b);
+        renderblocks.renderStandardBlock(block, x, y, z, r, g, b);
 
         int[][] offsets = {
                 { 0, -1,  0},
@@ -452,21 +450,21 @@ public abstract class RenderBlocksMixin {
             TileEntity te = blockAccess.getBlockTileEntity(x + offsets[i][0], y + offsets[i][1], z +offsets[i][2]);
             if(te instanceof TileEntityPipe
                     || type != 0 && te instanceof IInventory
-                    || Direction.getDirectionById(i) == Direction.UP && nid == PotatoLogisticsMod.blockAutoBasket.id
-                    || nid == PotatoLogisticsMod.blockBlockCrusher.id && blockBreakerDirId == i
+                    || Direction.getDirectionById(i) == Direction.UP && nid == PotatoBlocks.blockAutoBasket.id
+                    || nid == PotatoBlocks.blockBlockCrusher.id && blockBreakerDirId == i
             ) {
                 block.setBlockBounds(coord[0], coord[1], coord[2], coord[3], coord[4], coord[5]);
                 if (te instanceof TileEntityPipe) {
                     TileEntityPipe pipe = (TileEntityPipe) te;
                     if (isDirectional && pipe.isDirectional()) {
                         if (pipeDirection.getId() == i || pipe.isPointingTo(x, y, z)) {
-                            renderblocks.renderStandardBlockWithColorMultiplier(block, x, y, z, 1, 1, 1);
+                            renderblocks.renderStandardBlock(block, x, y, z, 1, 1, 1);
                         }
                     } else {
-                        renderblocks.renderStandardBlockWithColorMultiplier(block, x, y, z, 1, 1, 1);
+                        renderblocks.renderStandardBlock(block, x, y, z, 1, 1, 1);
                     }
                 } else {
-                    renderblocks.renderStandardBlockWithColorMultiplier(block, x, y, z, r, g, b);
+                    renderblocks.renderStandardBlock(block, x, y, z, r, g, b);
                 }
             }
         }

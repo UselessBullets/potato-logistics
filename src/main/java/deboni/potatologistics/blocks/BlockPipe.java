@@ -1,5 +1,6 @@
 package deboni.potatologistics.blocks;
 
+import deboni.potatologistics.PotatoItems;
 import deboni.potatologistics.PotatoLogisticsMod;
 import deboni.potatologistics.blocks.entities.TileEntityPipe;
 import net.minecraft.core.block.BlockTileEntity;
@@ -26,7 +27,7 @@ public class BlockPipe extends BlockTileEntity {
     }
 
     @Override
-    public boolean isOpaqueCube() {
+    public boolean isSolidRender() {
         return false;
     }
 
@@ -56,18 +57,18 @@ public class BlockPipe extends BlockTileEntity {
     }
 
     @Override
-    public void onBlockRemoval(World world, int x, int y, int z) {
+    public void onBlockRemoved(World world, int x, int y, int z, int data) {
         TileEntityPipe te = (TileEntityPipe)world.getBlockTileEntity(x, y, z);
         if (te != null) {
             te.dropItems();
         }
-        super.onBlockRemoval(world, x, y, z);
+        super.onBlockRemoved(world, x, y, z, data);
     }
 
     @Override
     public boolean blockActivated(World world, int x, int y, int z, EntityPlayer player) {
         ItemStack heldItem = player.getHeldItem();
-        if (heldItem != null && heldItem.itemID == PotatoLogisticsMod.itemWrench.id) {
+        if (heldItem != null && heldItem.itemID == PotatoItems.itemWrench.id) {
             int meta = world.getBlockMetadata(x, y, z);
             int type = meta & 3;
             type--;

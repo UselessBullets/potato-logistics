@@ -25,7 +25,7 @@ public class TileEntityRendererPipe extends TileEntityRenderer<TileEntityPipe> {
     public void doRender(TileEntityPipe tileEntity, double x, double y, double z, float g) {
 
         if (itemEntity == null)  {
-            itemEntity = new EntityItem(tileEntity.worldObj, 0, 0, 0, new ItemStack(PotatoLogisticsMod.itemPotato));
+            itemEntity = new EntityItem(tileEntity.worldObj, 0, 0, 0, new ItemStack(PotatoItems.itemPotato));
             itemEntity.setRot(0, 0);
             itemEntity.entityBrightness = 1;
             itemEntity.age = 0;

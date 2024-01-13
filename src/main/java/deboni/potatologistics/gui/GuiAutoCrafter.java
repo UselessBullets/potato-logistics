@@ -1,13 +1,8 @@
 package deboni.potatologistics.gui;
 
 import deboni.potatologistics.blocks.entities.TileEntityAutoCrafter;
-import deboni.potatologistics.blocks.entities.TileEntityBurner;
 import net.minecraft.client.gui.GuiContainer;
-import net.minecraft.client.gui.GuiCrafting;
-import net.minecraft.core.player.inventory.Container;
-import net.minecraft.core.player.inventory.ContainerWorkbench;
 import net.minecraft.core.player.inventory.InventoryPlayer;
-import net.minecraft.core.world.World;
 import org.lwjgl.opengl.GL11;
 
 public class GuiAutoCrafter extends GuiContainer {
@@ -16,8 +11,8 @@ public class GuiAutoCrafter extends GuiContainer {
     }
 
     @Override
-    public void onGuiClosed() {
-        super.onGuiClosed();
+    public void onClosed() {
+        super.onClosed();
         this.inventorySlots.onCraftGuiClosed(this.mc.thePlayer);
     }
 

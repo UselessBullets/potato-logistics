@@ -13,8 +13,8 @@ import net.minecraft.core.util.helper.Direction;
 import net.minecraft.core.world.World;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Vector3f;
-import sunsetsatellite.sunsetutils.util.Connection;
-import sunsetsatellite.sunsetutils.util.IItemIO;
+import sunsetsatellite.catalyst.core.util.Connection;
+import sunsetsatellite.catalyst.core.util.IItemIO;
 
 import java.util.Objects;
 
@@ -105,7 +105,7 @@ public class Util {
 
         TileEntity te = world.getBlockTileEntity(x, y, z);
         if (te instanceof IItemIO && te instanceof IInventory) {
-            sunsetsatellite.sunsetutils.util.Direction sdir = sunsetsatellite.sunsetutils.util.Direction.getDirectionFromSide(dir.getId()).getOpposite();
+            sunsetsatellite.catalyst.core.util.Direction sdir = sunsetsatellite.catalyst.core.util.Direction.getDirectionFromSide(dir.getId()).getOpposite();
             IItemIO itemIo = (IItemIO) te;
             IInventory inventory = (IInventory) itemIo;
 
