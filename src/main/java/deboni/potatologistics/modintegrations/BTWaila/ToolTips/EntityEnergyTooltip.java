@@ -11,6 +11,7 @@ import toufoumaster.btwaila.tooltips.TileTooltip;
 public class EntityEnergyTooltip extends TileTooltip<TileEntityEnergy> {
     @Override
     public void initTooltip() {
+        addClass(TileEntityCapacitor.class);
         addClass(TileEntityCoil.class);
         addClass(TileEntityEnergyConnector.class);
         addClass(TileEntityMiningDrill.class);

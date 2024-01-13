@@ -111,7 +111,7 @@ public class GuiBurner extends GuiContainer {
                 target = 2; // If it's not it just goes into the inventory
             }
         }
-        if (slot != null && itemInSlot instanceof ItemArmor && mouseButton == 1 && shiftPressed) {
+        if (slot != null && itemInSlot != null && itemInSlot instanceof ItemArmor && mouseButton == 1 && shiftPressed) {
             this.mc.playerController.handleInventoryMouseClick(this.inventorySlots.windowId, InventoryAction.EQUIP_ARMOR, new int[]{slot.id}, this.mc.thePlayer);
             return;
         }

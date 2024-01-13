@@ -24,15 +24,15 @@ public class BlockTreeChopper extends BlockTileEntityRotatable {
             int k1 = world.getBlockId(x + 1, y, z);
             byte byte0 = 3;
 
-            if (!Block.translucent[i1] && Block.translucent[l]) {
+            if (Block.solid[i1] && !Block.solid[l]) {
                 byte0 = 2;
             }
 
-            if (!Block.translucent[j1] && Block.translucent[k1]) {
+            if (Block.solid[j1] && !Block.solid[k1]) {
                 byte0 = 5;
             }
 
-            if (!Block.translucent[k1] && Block.translucent[j1]) {
+            if (Block.solid[k1] && !Block.solid[j1]) {
                 byte0 = 4;
             }
 

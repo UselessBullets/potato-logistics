@@ -53,7 +53,7 @@ public class TileEntityRendererEnergyConnector extends TileEntityRenderer<TileEn
                     b_col = 0.57f;
                 }
 
-                float bright = 1.8f;
+                float bright = 1f;
 
                 Util.draw3dLine(0.05,
                         tx, ty - yOff0 , tz,

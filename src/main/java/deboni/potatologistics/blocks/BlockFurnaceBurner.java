@@ -33,6 +33,7 @@ public class BlockFurnaceBurner extends BlockTileEntityRotatable {
 
         return true;
     }
+
     @Override
     public void onBlockRemoved(World world, int x, int y, int z, int data) {
         int blockId = world.getBlockId(x,y,z);

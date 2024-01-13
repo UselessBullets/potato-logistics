@@ -121,7 +121,7 @@ public class TileEntityPipe extends TileEntity {
 
         if (!stacks.isEmpty()) worldObj.markBlockNeedsUpdate(this.x, this.y, this.z);
 
-        int meta = worldObj.getBlockMetadata(x, y, z);
+        int meta = worldObj.getBlockMetadata(this.x, this.y, this.z);
 
         int type = meta & 0x03;
         boolean isDirectional = (meta & (1 << 2)) != 0;
@@ -129,11 +129,11 @@ public class TileEntityPipe extends TileEntity {
 
         if (type == 1 && stacks.size() < this.stackLimit && timer <= 0) {
             for (int i = 0; i < offsets.length; i++) {
-                int _x = x + offsets[i][0];
-                int _y = y + offsets[i][1];
-                int _z = z + offsets[i][2];
+                int x2 = x + offsets[i][0];
+                int y2 = y + offsets[i][1];
+                int z2 = z + offsets[i][2];
 
-                PipeStack inventoryStack = Util.getItemFromInventory(worldObj, _x, _y, _z, Direction.getDirectionById(i), this.stackTimer);
+                PipeStack inventoryStack = Util.getItemFromInventory(worldObj, x2, y2, z2, Direction.getDirectionById(i), this.stackTimer);
                 if (inventoryStack != null) {
                     stacks.add(inventoryStack);
                     break;
@@ -166,40 +166,50 @@ public class TileEntityPipe extends TileEntity {
                 List<Direction> directions = new ArrayList<>(6);
 
                 for (int i = 0; i < offsets.length; i++) {
-                    int _x = x + offsets[i][0];
-                    int _y = y + offsets[i][1];
-                    int _z = z + offsets[i][2];
-                    int nid = worldObj.getBlockId(_x, _y, _z);
+                    int x2 = x + offsets[i][0];
+                    int y2 = y + offsets[i][1];
+                    int z2 = z + offsets[i][2];
+                    int nid = worldObj.getBlockId(x2, y2, z2);
 
-                    TileEntity te = worldObj.getBlockTileEntity(_x, _y, _z);
+                    TileEntity te = worldObj.getBlockTileEntity(x2, y2, z2);
 
-                    if (te instanceof IItemIO && te instanceof IInventory) {
-                        sunsetsatellite.catalyst.core.util.Direction sdir = sunsetsatellite.catalyst.core.util.Direction.getDirectionFromSide(i).getOpposite();
-                        IItemIO itemIo = (IItemIO) te;
-                        IInventory inventory = (IInventory) itemIo;
 
-                        Connection con = itemIo.getItemIOForSide(sdir);
-                        if (con == Connection.INPUT || con == Connection.BOTH) {
-                            ioInventories.add(inventory);
-                            itemIOs.add(itemIo);
-                            ioDirections.add(sdir);
+                    if (te instanceof IInventory) {
+
+                        IInventory inventory = (IInventory) te;
+                        String inventoryName = inventory.getInvName();
+                        boolean isFromIronChests = Objects.equals(inventoryName, "Iron Chest")
+                                || Objects.equals(inventoryName, "Gold Chest")
+                                || Objects.equals(inventoryName, "Diamond Chest")
+                                || Objects.equals(inventoryName, "Steel Chest")
+                                || Objects.equals(inventoryName, "Big Chest");
+
+                        if (te instanceof IItemIO && !isFromIronChests) {
+                            sunsetsatellite.catalyst.core.util.Direction sdir = sunsetsatellite.catalyst.core.util.Direction.getDirectionFromSide(i).getOpposite();
+                            IItemIO itemIo = (IItemIO) te;
+
+                            Connection con = itemIo.getItemIOForSide(sdir);
+                            if (type == 2 && (con == Connection.INPUT || con == Connection.BOTH)) {
+                                ioInventories.add(inventory);
+                                itemIOs.add(itemIo);
+                                ioDirections.add(sdir);
+                            }
+                        } else {
+
+                            if (inventory instanceof TileEntityChest) {
+                                inventory = BlockChest.getInventory(worldObj, x2, y2 ,z2);
+                            }
+
+                            if (type == 2) {
+                                inventories.add(inventory);
+                                inventoriesDirection.add(Direction.getDirectionById(i));
+                            }
                         }
-                    } else if (te instanceof TileEntityPipe && stack.direction != Direction.getDirectionById(i)) {
+                    }else if (te instanceof TileEntityPipe && stack.direction != Direction.getDirectionById(i)) {
                         TileEntityPipe pipe = (TileEntityPipe) te;
                         if (pipe.stacks.size() < pipe.stackLimit && (!isDirectional || pipeDirection.getId() == i)) {
                             pipes.add(pipe);
                             directions.add(Direction.getDirectionById(i));
-                        }
-                    } else if (te instanceof IInventory) {
-                        IInventory inventory = (IInventory) te;
-
-                        if (inventory instanceof TileEntityChest) {
-                            inventory = BlockChest.getInventory(worldObj, _x, _y ,_z);
-                        }
-
-                        if (type == 2) {
-                            inventories.add(inventory);
-                            inventoriesDirection.add(Direction.getDirectionById(i));
                         }
                     }
                 }

@@ -70,14 +70,14 @@ public class TileEntityMiningDrill extends TileEntityEnergyConductor {
     private void fillBlocksToBreak() {
         int radius = 10;
 
-        for (int _y = 2; _y < y; _y++) {
-            for (int _z = z - radius; _z <= z + radius; _z++) {
-                for (int _x = x - radius; _x <= x + radius; _x++) {
-                    Block block = worldObj.getBlock(_x, _y, _z);
+        for (int y2 = 2; y2 < y; y2++) {
+            for (int z2 = z - radius; z2 <= z + radius; z2++) {
+                for (int x2 = x - radius; x2 <= x + radius; x2++) {
+                    Block block = worldObj.getBlock(x2, y2, z2);
                     if (block == null || block.hasTag(BlockTags.IS_WATER) || block.hasTag(BlockTags.IS_LAVA) || block.immovable && block.id != Block.obsidian.id || block.id == Block.bedrock.id) {
                         continue;
                     }
-                    blocksToBreak.add(new int[]{_x, _y, _z});
+                    blocksToBreak.add(new int[]{x2, y2, z2});
                 }
             }
         }

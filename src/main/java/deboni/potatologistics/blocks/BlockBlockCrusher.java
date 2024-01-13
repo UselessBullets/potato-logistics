@@ -2,9 +2,7 @@ package deboni.potatologistics.blocks;
 
 import deboni.potatologistics.Util;
 import deboni.potatologistics.blocks.entities.TileEntityPipe;
-import net.minecraft.core.block.Block;
-import net.minecraft.core.block.BlockChest;
-import net.minecraft.core.block.BlockRotatable;
+import net.minecraft.core.block.*;
 import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.block.entity.TileEntityChest;
 import net.minecraft.core.block.material.Material;
@@ -34,7 +32,7 @@ public class BlockBlockCrusher extends BlockRotatable {
         if (blockId > 0 && Block.blocksList[blockId].canProvidePower()) {
             boolean flag = world.isBlockIndirectlyGettingPowered(x, y, z) || world.isBlockIndirectlyGettingPowered(x, y + 1, z);
             if (flag) {
-                world.scheduleBlockUpdate(x, y, z, this.id, 0);
+                world.scheduleBlockUpdate(x, y, z, this.id, this.tickRate());
             }
         }
     }

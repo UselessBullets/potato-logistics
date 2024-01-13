@@ -40,6 +40,7 @@ public class BlockAdvancedDispenser
     }
 
     private void setDispenserDefaultDirection(World world, int i, int j, int k) {
+
         if (world.isClientSide) {
             return;
         }
@@ -51,13 +52,13 @@ public class BlockAdvancedDispenser
 //        if (Block.opaqueCubeLookup[l] && !Block.opaqueCubeLookup[i1]) {
 //            byte0 = 3;
 //        }
-        if (!Block.translucent[i1] && Block.translucent[l]) {
+        if (Block.solid[i1] && !Block.solid[l]) {
             byte0 = 2;
         }
-        if (!Block.translucent[j1] && Block.translucent[k1]) {
+        if (Block.solid[j1] && !Block.solid[k1]) {
             byte0 = 5;
         }
-        if (!Block.translucent[k1] && Block.translucent[j1]) {
+        if (Block.solid[k1] && !Block.solid[j1]) {
             byte0 = 4;
         }
         world.setBlockMetadataWithNotify(i, j, k, byte0);

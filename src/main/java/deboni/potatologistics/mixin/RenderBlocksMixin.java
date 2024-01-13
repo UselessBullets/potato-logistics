@@ -6,7 +6,10 @@ import deboni.potatologistics.blocks.BlockAutoBasket;
 import deboni.potatologistics.blocks.entities.TileEntityPipe;
 import deboni.potatologistics.blocks.entities.TileEntityStirlingEngine;
 import deboni.potatologistics.blocks.entities.TileEntityTreeChopper;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.hud.HotbarComponent;
 import net.minecraft.client.render.RenderBlocks;
+import net.minecraft.client.render.RenderEngine;
 import net.minecraft.client.render.Tessellator;
 import net.minecraft.client.render.block.color.BlockColor;
 import net.minecraft.client.render.block.color.BlockColorDispatcher;
@@ -28,6 +31,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import sunsetsatellite.catalyst.core.util.RenderBlockSimple;
 
 
 @Mixin(
@@ -65,7 +69,6 @@ public abstract class RenderBlocksMixin {
             at = @At("HEAD"),
             cancellable = true
     )
-
     void renderBlockByRenderType(Block block, int renderType, int x, int y, int z, CallbackInfoReturnable<Boolean> cir) {
         if (renderType == 150){
             cir.setReturnValue(renderBlockAutoBasket(thisAs, block, x, y, z));
@@ -83,8 +86,9 @@ public abstract class RenderBlocksMixin {
             cir.setReturnValue(renderBlockStirlingEngine(thisAs, this.blockAccess, x, y, z, block, world));
         }
     }
-    @Inject(method = "renderBlockOnInventory(Lnet/minecraft/core/block/Block;IF)V", at = @At("TAIL"))
-    private void renderBlockOnInventory(Block block, int metadata, float brightness, CallbackInfo ci){
+
+    @Inject(method = "renderBlockOnInventory(Lnet/minecraft/core/block/Block;IFF)V", at = @At("TAIL"))
+    private void renderBlockOnInventory(Block block, int metadata, float brightness, float alpha, CallbackInfo ci){
         int renderType = ((BlockModelRenderBlocks) BlockModelDispatcher.getInstance().getDispatch(block)).renderType;
         if (renderType == 150 || renderType == 151 || renderType == 152){
             renderBlockInvNormal(block, metadata, brightness);
@@ -93,21 +97,13 @@ public abstract class RenderBlocksMixin {
             renderBlockStirlingEngineInventory(block, metadata, brightness);
         }
     }
+
     @Unique
     private void renderBlockInvNormal(Block block, int metadata, float brightness){
-        float f4;
-        float f9;
-        float f8;
-        float f42;
         int renderType = ((BlockModelRenderBlocks)BlockModelDispatcher.getInstance().getDispatch(block)).renderType;
-        boolean isGrass;
         Tessellator tessellator = Tessellator.instance;
-        boolean bl = isGrass = block.id == Block.grass.id;
         if (this.useInventoryTint) {
-            int j = ((BlockColor)BlockColorDispatcher.getInstance().getDispatch(block)).getFallbackColor(metadata);
-            if (isGrass) {
-                j = 0xFFFFFF;
-            }
+            int j = BlockColorDispatcher.getInstance().getDispatch(block).getFallbackColor(metadata);
             float f1 = (float)(j >> 16 & 0xFF) / 255.0f;
             float f3 = (float)(j >> 8 & 0xFF) / 255.0f;
             float f5 = (float)(j & 0xFF) / 255.0f;
@@ -126,20 +122,12 @@ public abstract class RenderBlocksMixin {
         tessellator.setNormal(0.0f, -1.0f, 0.0f);
         this.renderBottomFace(block, 0.0, 0.0, 0.0, block.getBlockTextureFromSideAndMetadata(Side.BOTTOM, metadata));
         tessellator.draw();
-        if (isGrass && this.useInventoryTint) {
-            int l = ((BlockColor)BlockColorDispatcher.getInstance().getDispatch(block)).getFallbackColor(metadata);
-            f42 = (float)(l >> 16 & 0xFF) / 255.0f;
-            f8 = (float)(l >> 8 & 0xFF) / 255.0f;
-            f9 = (float)(l & 0xFF) / 255.0f;
-            GL11.glColor4f(f42 * brightness, f8 * brightness, f9 * brightness, 1.0f);
-        }
+
         tessellator.startDrawingQuads();
         tessellator.setNormal(0.0f, 1.0f, 0.0f);
         this.renderTopFace(block, 0.0, 0.0, 0.0, block.getBlockTextureFromSideAndMetadata(Side.TOP, metadata));
         tessellator.draw();
-        if (isGrass && this.useInventoryTint) {
-            GL11.glColor4f(brightness, brightness, brightness, 1.0f);
-        }
+
         tessellator.startDrawingQuads();
         tessellator.setNormal(0.0f, 0.0f, -1.0f);
         this.renderNorthFace(block, 0.0, 0.0, 0.0, block.getBlockTextureFromSideAndMetadata(Side.NORTH, metadata));
@@ -163,7 +151,6 @@ public abstract class RenderBlocksMixin {
         float onepix = 0.0625f;
         block.setBlockBounds(0, 0.0f, 0, 1, 0.5f - onepix, 1);
         this.renderBlockInvNormal(block,metadata, brightness);
-
 
         boolean b = false;
         for (float yf = 0.5f - onepix * 1; yf <= 1.0f; yf += onepix) {
@@ -212,7 +199,10 @@ public abstract class RenderBlocksMixin {
             } else {
                 block.setBlockBounds(0, yf, 0, 1, yf + onepix, 1);
             }
-            renderblocks.renderStandardBlock(block, x, y, z, heatColor[0], heatColor[1], heatColor[2]);
+
+            float heatColor_1 = (1 - t) + t * heatColor[1];
+            float heatColor_2 = (1 - t) + t * heatColor[2];
+            renderblocks.renderStandardBlock(block, x, y, z, heatColor[0], heatColor_1, heatColor_2);
 
             b = !b;
         }
@@ -435,7 +425,7 @@ public abstract class RenderBlocksMixin {
         for (int i = 0; i < offsets.length; i++) {
             float[] coord = coords[i];
 
-            if (isDirectional && pipeDirection.getId() == i) {
+            if (isDirectional && pipeDirection.getId() != i) {
                 coord = coordsOpen[i];
             }
 

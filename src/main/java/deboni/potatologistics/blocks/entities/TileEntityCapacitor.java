@@ -3,7 +3,7 @@ package deboni.potatologistics.blocks.entities;
 
 import sunsetsatellite.catalyst.core.util.Direction;
 
-public class TileEntityCapacitor extends TileEntityEnergyConnector {
+public class TileEntityCapacitor extends TileEntityEnergyConductor {
 
     public int prevEnergyLevel = 0;
 
@@ -11,6 +11,8 @@ public class TileEntityCapacitor extends TileEntityEnergyConnector {
         setCapacity(capacity);
         setEnergy(0);
         setTransfer(32);
+
+        PotatoLogisticsMod.LOGGER.info("Capacity: " + capacity);
 
         for (Direction dir: Direction.values()) {
             setConnection(dir, sunsetsatellite.catalyst.core.util.Connection.OUTPUT);
@@ -25,9 +27,18 @@ public class TileEntityCapacitor extends TileEntityEnergyConnector {
         return energyPercent < 0.8 || energyDelta < 0;
     }
 
+
     @Override
-    public void updateEntity() {
+    public Packet getDescriptionPacket() {
+        return new Packet140TileEntityData(this);
+    }
+
+
+    @Override
+    public void tick() {
+        super.tick();
+
         prevEnergyLevel = energy;
-        super.updateEntity();
+        worldObj.markBlockNeedsUpdate(x, y, z);
     }
 }

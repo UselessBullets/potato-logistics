@@ -11,7 +11,6 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.net.packet.Packet;
 import net.minecraft.core.net.packet.Packet140TileEntityData;
 import net.minecraft.core.player.inventory.IInventory;
-import net.minecraft.core.player.inventory.InventorySorter;
 import sunsetsatellite.catalyst.core.util.Connection;
 import sunsetsatellite.catalyst.core.util.Direction;
 import sunsetsatellite.catalyst.core.util.IItemIO;
@@ -42,12 +41,7 @@ public class TileEntityBurner extends TileEntity implements IInventory, IItemIO 
         boolean updated = false;
 
         if (!this.worldObj.isClientSide) {
-            if (worldObj.isBlockIndirectlyGettingPowered(x, y, z) || worldObj.isBlockGettingPowered(x, y, z)) {
-                isPowered = true;
-                return 0;
-            } else {
-                isPowered = false;
-            }
+            isPowered = worldObj.isBlockIndirectlyGettingPowered(x, y, z) || worldObj.isBlockGettingPowered(x, y, z);
 
             if (this.currentBurnTime <= 0 && !isPowered) {
                 this.maxBurnTime = this.currentBurnTime = this.getBurnTimeFromItem(this.contents[0]) / 5;
@@ -191,7 +185,6 @@ public class TileEntityBurner extends TileEntity implements IInventory, IItemIO 
 
     @Override
     public void sortInventory() {
-        InventorySorter.sortInventory(contents);
     }
 
     private int getBurnTimeFromItem(ItemStack itemStack) {

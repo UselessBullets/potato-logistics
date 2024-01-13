@@ -105,6 +105,5 @@ public class TileEntityFilter extends TileEntity implements IInventory {
 
     @Override
     public void sortInventory() {
-        InventorySorter.sortInventory(filterContents);
     }
 }
