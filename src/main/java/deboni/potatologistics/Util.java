@@ -6,7 +6,6 @@ import deboni.potatologistics.blocks.entities.TileEntityPipe;
 import net.minecraft.client.render.Tessellator;
 import net.minecraft.core.block.BlockChest;
 import net.minecraft.core.block.entity.TileEntity;
-import net.minecraft.core.crafting.CraftingManager;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.player.inventory.IInventory;
 import net.minecraft.core.util.helper.Direction;

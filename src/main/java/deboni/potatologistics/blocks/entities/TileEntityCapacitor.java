@@ -1,8 +1,7 @@
 package deboni.potatologistics.blocks.entities;
 
-import net.minecraft.core.block.BlockRedstone;
-import net.minecraft.core.block.BlockRedstoneWire;
-import sunsetsatellite.sunsetutils.util.Direction;
+
+import sunsetsatellite.catalyst.core.util.Direction;
 
 public class TileEntityCapacitor extends TileEntityEnergyConnector {
 
@@ -14,9 +13,9 @@ public class TileEntityCapacitor extends TileEntityEnergyConnector {
         setTransfer(32);
 
         for (Direction dir: Direction.values()) {
-            setConnection(dir, sunsetsatellite.sunsetutils.util.Connection.OUTPUT);
+            setConnection(dir, sunsetsatellite.catalyst.core.util.Connection.OUTPUT);
         }
-        setConnection(Direction.Y_POS, sunsetsatellite.sunsetutils.util.Connection.INPUT);
+        setConnection(Direction.Y_POS, sunsetsatellite.catalyst.core.util.Connection.INPUT);
     }
 
     public boolean needPower() {

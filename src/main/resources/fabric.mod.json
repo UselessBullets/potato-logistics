@@ -18,10 +18,13 @@
   "environment": "*",
   "entrypoints": {
     "beforeGameStart": [
-        "deboni.potatologistics.PotatoLogisticsMod"
+      "deboni.potatologistics.PotatoLogisticsMod"
+    ],
+    "recipesReady": [
+      "deboni.potatologistics.PotatoRecipes"
     ],
     "btwaila": [
-        "deboni.potatologistics.modintegrations.BTWaila.WailaPlugin"
+      "deboni.potatologistics.modintegrations.BTWaila.WailaPlugin"
     ]
   },
   "mixins": [

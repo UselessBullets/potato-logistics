@@ -1,0 +1,774 @@
+[
+  {
+    "name": "potatologistics:workbench/potato",
+    "type": "minecraft:crafting/shapeless",
+    "inputs": [
+      {
+        "stack": {
+          "key": "item.clay",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "stack": {
+          "key": "item.dust.sugar",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "stack": {
+          "key": "item.dust.glowstone",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "item.potatologistics.potato",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "potatologistics:workbench/potato_block_decompress",
+    "type": "minecraft:crafting/shapeless",
+    "inputs": [
+      {
+        "stack": {
+          "key": "tile.potatologistics.potato",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "item.potatologistics.potato",
+      "amount": 9,
+      "meta": 0
+    }
+  },
+  {
+    "name": "potatologistics:workbench/wire_spool_reset",
+    "type": "minecraft:crafting/shapeless",
+    "inputs": [
+      {
+        "stack": {
+          "key": "item.potatologistics.wire_spool",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "item.potatologistics.wire_spool",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "potatologistics:workbench/redstone_iron_mix",
+    "type": "minecraft:crafting/shapeless",
+    "inputs": [
+      {
+        "stack": {
+          "key": "item.ingot.iron",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "stack": {
+          "key": "item.dust.redstone",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "stack": {
+          "key": "item.dust.redstone",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "stack": {
+          "key": "item.dust.redstone",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "item.potatologistics.redstone_iron_mix",
+      "amount": 1,
+      "meta": 0
+    }
+  },
+  {
+    "name": "potatologistics:workbench/block_potato",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "###",
+      "###",
+      "###"
+    ],
+    "symbols": [
+      {
+        "symbol": "#",
+        "stack": {
+          "key": "item.potatologistics.potato",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "tile.potatologistics.potato",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "potatologistics:workbench/pipe",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "ABA"
+    ],
+    "symbols": [
+      {
+        "symbol": "A",
+        "stack": {
+          "key": "item.ingot.iron",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "symbol": "B",
+        "stack": {
+          "key": "tile.glass",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "tile.potatologistics.pipe",
+      "amount": 16,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "potatologistics:workbench/pipe_directional",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "ABC"
+    ],
+    "symbols": [
+      {
+        "symbol": "A",
+        "stack": {
+          "key": "item.ingot.iron",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "symbol": "B",
+        "stack": {
+          "key": "tile.glass",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "symbol": "C",
+        "stack": {
+          "key": "item.ingot.gold",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "tile.potatologistics.directional_pipe",
+      "amount": 16,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "potatologistics:workbench/wrench",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      " # ",
+      "## ",
+      "  #"
+    ],
+    "symbols": [
+      {
+        "symbol": "#",
+        "stack": {
+          "key": "item.ingot.iron",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "item.potatologistics.wrench",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "potatologistics:workbench/filter",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "ABA",
+      "BCB",
+      "ABA"
+    ],
+    "symbols": [
+      {
+        "symbol": "A",
+        "group" : "minecraft:planks"
+      },
+      {
+        "symbol": "B",
+        "stack": {
+          "key": "item.dust.redstone",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "symbol": "C",
+        "stack": {
+          "key": "tile.mesh",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "tile.potatologistics.filter",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "potatologistics:workbench/auto_basket",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "AAA",
+      "CBC",
+      "CCC"
+    ],
+    "symbols": [
+      {
+        "symbol": "A",
+        "stack": {
+          "key": "item.leather",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "symbol": "B",
+        "stack": {
+          "key": "item.dust.redstone",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "symbol": "C",
+        "stack": {
+          "key": "item.wheat",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "item.potatologistics.auto_basket",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "potatologistics:workbench/crusher",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "ABA",
+      "ECF",
+      "ADA"
+    ],
+    "symbols": [
+      {
+        "symbol": "A",
+        "group": "minecraft:cobblestones"
+      },
+      {
+        "symbol": "B",
+        "stack": {
+          "key": "tile.obsidian",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "symbol": "C",
+        "stack": {
+          "key": "item.tool.pickaxe.diamond",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "symbol": "D",
+        "stack": {
+          "key": "tile.piston.base.sticky",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "symbol": "E",
+        "stack": {
+          "key": "tile.potatologistics.pipe",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "symbol": "F",
+        "stack": {
+          "key": "item.dust.redstone",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "tile.potatologistics.block_crusher",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "potatologistics:workbench/placer",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "ADA",
+      "ACA",
+      "ABA"
+    ],
+    "symbols": [
+      {
+        "symbol": "A",
+        "group": "minecraft:cobblestones"
+      },
+      {
+        "symbol": "B",
+        "stack": {
+          "key": "tile.potatologistics.pipe",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "symbol": "C",
+        "stack": {
+          "key": "item.dust.redstone",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "symbol": "D",
+        "stack": {
+          "key": "tile.piston.base",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "tile.potatologistics.block_placer",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "potatologistics:workbench/tree_chopper",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "AAA",
+      "BCD",
+      "AEA"
+    ],
+    "symbols": [
+      {
+        "symbol": "A",
+        "stack": {
+          "key": "item.ingot.iron",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "symbol": "B",
+        "stack": {
+          "key": "item.tool.axe.diamond",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "symbol": "C",
+        "stack": {
+          "key": "tile.potatologistics.iron_machine_block",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "symbol": "D",
+        "stack": {
+          "key": "tile.potatologistics.pipe",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "symbol": "E",
+        "stack": {
+          "key": "item.dust.redstone",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "tile.potatologistics.tree_chopper",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "potatologistics:workbench/mining_drill",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "ADA",
+      "CBC",
+      "AEA"
+    ],
+    "symbols": [
+      {
+        "symbol": "A",
+        "stack": {
+          "key": "item.ingot.steel",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "symbol": "B",
+        "stack": {
+          "key": "item.tool.pickaxe.diamond",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "symbol": "C",
+        "stack": {
+          "key": "tile.potatologistics.steel_machine_block",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "symbol": "D",
+        "stack": {
+          "key": "tile.potatologistics.pipe",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "symbol": "E",
+        "stack": {
+          "key": "item.dust.redstone",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "tile.potatologistics.mining_drill",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "potatologistics:workbench/iron_gear",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      " A ",
+      "A A",
+      " A "
+    ],
+    "symbols": [
+      {
+        "symbol": "A",
+        "stack": {
+          "key": "item.ingot.iron",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "item.potatologistics.iron_gear",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "potatologistics:workbench/steel_gear",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      " A ",
+      "A A",
+      " A "
+    ],
+    "symbols": [
+      {
+        "symbol": "A",
+        "stack": {
+          "key": "item.ingot.steel",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "item.potatologistics.steel_gear",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "potatologistics:workbench/iron_machine_block",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "AAA",
+      "BCB",
+      "AAA"
+    ],
+    "symbols": [
+      {
+        "symbol": "A",
+        "stack": {
+          "key": "item.ingot.iron",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "symbol": "B",
+        "stack": {
+          "key": "item.potatologistics.iron_gear",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "symbol": "C",
+        "stack": {
+          "key": "item.potatologistics.redstone_alloy",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "tile.potatologistics.iron_machine_block",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "potatologistics:workbench/steel_machine_block",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "AAA",
+      "BCB",
+      "AAA"
+    ],
+    "symbols": [
+      {
+        "symbol": "A",
+        "stack": {
+          "key": "item.ingot.steel",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "symbol": "B",
+        "stack": {
+          "key": "item.potatologistics.steel_gear",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "symbol": "C",
+        "stack": {
+          "key": "item.potatologistics.redstone_alloy",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "tile.potatologistics.steel_machine_block",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "potatologistics:workbench/wire_spool",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      " A ",
+      "ABA",
+      " A "
+    ],
+    "symbols": [
+      {
+        "symbol": "A",
+        "stack": {
+          "key": "item.potatologistics.redstone_alloy",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "symbol": "B",
+        "stack": {
+          "key": "item.stick",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "item.potatologistics.wire_spool",
+      "amount": 8,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "potatologistics:workbench/energy_connector",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      " A ",
+      "BAB",
+      "BAB"
+    ],
+    "symbols": [
+      {
+        "symbol": "A",
+        "stack": {
+          "key": "item.ingot.iron",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "symbol": "B",
+        "stack": {
+          "key": "item.brick.clay",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "item.potatologistics.energy_connector",
+      "amount": 4,
+      "meta": 0
+    },
+    "consumeContainers": true
+  },
+  {
+    "name": "potatologistics:workbench/auto_crafter",
+    "type": "minecraft:crafting/shaped",
+    "pattern": [
+      "RRR",
+      "ICI",
+      "IGI"
+    ],
+    "symbols": [
+      {
+        "symbol": "R",
+        "stack": {
+          "key": "item.dust.redstone",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "symbol": "I",
+        "stack": {
+          "key": "item.ingot.iron",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "symbol": "C",
+        "stack": {
+          "key": "tile.workbench",
+          "amount": 1,
+          "meta": 0
+        }
+      },
+      {
+        "symbol": "G",
+        "stack": {
+          "key": "item.potatologistics.iron_gear",
+          "amount": 1,
+          "meta": 0
+        }
+      }
+    ],
+    "result": {
+      "key": "tile.potatologistics.auto_crafter",
+      "amount": 1,
+      "meta": 0
+    },
+    "consumeContainers": true
+  }
+]
